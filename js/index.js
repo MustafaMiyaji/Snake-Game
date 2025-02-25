@@ -87,3 +87,17 @@ function gameEngine() {
   foodElement.classList.add("food");
   board.appendChild(foodElement);
 }
+
+board.innerHTML = "";
+snakeArr.forEach((e, index) => {
+  snakeElement = document.createElement("div");
+  snakeElement.style.gridRowStart = e.y;
+  snakeElement.style.gridColumnStart = e.x;
+
+  if (index === 0) {
+    snakeElement.classList.add("head");
+  } else {
+    snakeElement.classList.add("snake");
+  }
+  board.appendChild(snakeElement);
+});
