@@ -32,22 +32,22 @@
   font-family: "New Tegomin", serif;
 }
 
-.head {
-  background: linear-gradient(rgb(240, 124, 124), rgb(228, 228, 129));
-  border: 2px solid rgb(34, 4, 34);
-  transform: scale(1.02);
-  border-radius: 9px;
-}
-
 #board {
   background: linear-gradient(rgb(170, 236, 170), rgb(236, 236, 167));
   width: 90vmin;
   height: 92vmin;
   border: 2px solid black;
-  box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.2); /* Corrected shadow opacity */
+  box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.2);
   display: grid;
   grid-template-rows: repeat(18, 1fr);
   grid-template-columns: repeat(18, 1fr);
+}
+
+.head {
+  background: linear-gradient(rgb(240, 124, 124), rgb(228, 228, 129));
+  border: 2px solid rgb(34, 4, 34);
+  transform: scale(1.02);
+  border-radius: 9px;
 }
 
 .snake {
