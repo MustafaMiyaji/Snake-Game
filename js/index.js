@@ -4,7 +4,7 @@ const foodSound = new Audio("music/food.mp3");
 const gameOverSound = new Audio("music/gameover.mp3");
 const moveSound = new Audio("music/move.mp3");
 const musicSound = new Audio("music/music.mp3");
-let baseSpeed = 10; // Lower base speed
+let baseSpeed = 10; // Start with a slower speed
 let speed = baseSpeed;
 let score = 0;
 let lastPaintTime = 0;
@@ -88,16 +88,39 @@ function gameEngine() {
   board.appendChild(foodElement);
 }
 
-board.innerHTML = "";
-snakeArr.forEach((e, index) => {
-  snakeElement = document.createElement("div");
-  snakeElement.style.gridRowStart = e.y;
-  snakeElement.style.gridColumnStart = e.x;
+// Main logic starts here
+musicSound.play();
+let hiscore = localStorage.getItem("hiscore");
+if (hiscore === null) {
+  hiscoreval = 0;
+  localStorage.setItem("hiscore", JSON.stringify(hiscoreval));
+} else {
+  hiscoreval = JSON.parse(hiscore);
+  hiscoreBox.innerHTML = "HiScore: " + hiscore;
+}
 
-  if (index === 0) {
-    snakeElement.classList.add("head");
-  } else {
-    snakeElement.classList.add("snake");
+window.requestAnimationFrame(main);
+window.addEventListener("keydown", (e) => {
+  inputDir = { x: 0, y: 1 }; // Start the game
+  moveSound.play();
+  switch (e.key) {
+    case "ArrowUp":
+      inputDir.x = 0;
+      inputDir.y = -1;
+      break;
+    case "ArrowDown":
+      inputDir.x = 0;
+      inputDir.y = 1;
+      break;
+    case "ArrowLeft":
+      inputDir.x = -1;
+      inputDir.y = 0;
+      break;
+    case "ArrowRight":
+      inputDir.x = 1;
+      inputDir.y = 0;
+      break;
+    default:
+      break;
   }
-  board.appendChild(snakeElement);
 });
