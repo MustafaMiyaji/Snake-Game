@@ -10,6 +10,10 @@ let score = 0;
 let lastPaintTime = 0;
 let snakeArr = [{ x: 13, y: 15 }];
 let food = { x: 6, y: 7 };
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
 
 // Game Functions
 function main(ctime) {
@@ -136,3 +140,51 @@ window.addEventListener("keydown", (e) => {
       break;
   }
 });
+
+// Function to handle touch start
+function handleTouchStart(evt) {
+  const firstTouch = evt.touches[0];
+  touchStartX = firstTouch.clientX;
+  touchStartY = firstTouch.clientY;
+}
+
+// Function to handle touch move
+function handleTouchMove(evt) {
+  if (!touchStartX || !touchStartY) {
+    return;
+  }
+
+  touchEndX = evt.touches[0].clientX;
+  touchEndY = evt.touches[0].clientY;
+
+  const diffX = touchEndX - touchStartX;
+  const diffY = touchEndY - touchStartY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Horizontal swipe
+    if (diffX > 0) {
+      // Swipe right
+      inputDir = { x: 1, y: 0 };
+    } else {
+      // Swipe left
+      inputDir = { x: -1, y: 0 };
+    }
+  } else {
+    // Vertical swipe
+    if (diffY > 0) {
+      // Swipe down
+      inputDir = { x: 0, y: 1 };
+    } else {
+      // Swipe up
+      inputDir = { x: 0, y: -1 };
+    }
+  }
+
+  // Reset values
+  touchStartX = 0;
+  touchStartY = 0;
+}
+
+// Add event listeners for touch events
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
